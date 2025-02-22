@@ -21,7 +21,7 @@ public class Library {
         // If ID not taken
         Book newBook = new Book(id, title, author, year);
         books.add(newBook);
-        System.out.println("Book added successfully.");
+//        System.out.println("Book added successfully.");
         return true;
     }
 
@@ -56,4 +56,38 @@ public class Library {
         }
         return false;
     }
+
+    // Save books to a file (optional)
+    public void saveToFile(String filename) {
+        try (java.io.FileWriter writer = new java.io.FileWriter(filename)) {
+            for (Book book : books) {
+                writer.write(book.getId() + "," + book.getTitle() + "," + book.getAuthor() + "," + book.getYear() + "\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Error saving to file: " + e.getMessage());
+        }
+    }
+
+    // Load books from a file (optional)
+    public void loadFromFile(String filename) {
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                int id = Integer.parseInt(parts[0]);
+                String title = parts[1];
+                String author = parts[2];
+                int year = Integer.parseInt(parts[3]);
+                boolean added = addBook(id, title, author, year);
+                if (!added) {
+                    System.out.println("Book was not added due to duplicate ID.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading from file: " + e.getMessage());
+        }
+    }
+
+
+
 }

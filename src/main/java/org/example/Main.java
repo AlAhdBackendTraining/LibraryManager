@@ -8,6 +8,7 @@ public class Main
     {
         Scanner scanner = new Scanner(System.in);
         Library library = new Library();
+        library.loadFromFile("books_List.txt"); //retrieve books from a file
 
         while (true) {
             //menu
@@ -43,6 +44,8 @@ public class Main
                         boolean added = library.addBook(id, title, author, year);
                         if (!added) {
                             System.out.println("Book was not added due to duplicate ID.");
+                        }else{
+                            System.out.println("Book added successfully.");
                         }
 
                     } catch (Exception e) {
@@ -80,6 +83,7 @@ public class Main
 
                 case 5:
                     // Exit
+                    library.saveToFile("books_List.txt"); //save books to a file on exit
                     System.out.println("Done");
                     return;
 
