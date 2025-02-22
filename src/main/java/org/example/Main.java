@@ -40,9 +40,11 @@ public class Main
                         System.out.print("Enter publication year: ");
                         int year = Integer.parseInt(scanner.nextLine());
 
-                        Book newBook = new Book(id, title, author, year);
-                        library.addBook(newBook);
-                        System.out.println("Book added successfully.");
+                        boolean added = library.addBook(id, title, author, year);
+                        if (!added) {
+                            System.out.println("Book was not added due to duplicate ID.");
+                        }
+
                     } catch (Exception e) {
                         System.out.println("Error adding book: " + e.getMessage());
                     }

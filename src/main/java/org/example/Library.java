@@ -9,8 +9,20 @@ public class Library {
     }
 
     //Adding a new book
-    public void addBook(Book book){
-        books.add(book);
+    public boolean addBook(int id, String title, String author, int year) {
+        //if ID is already exist
+        for (Book book : books) {
+            if (book.getId() == id) {
+                System.out.println("Error: Book with ID " + id + " already exists.");
+                return false; // ID already taken, return false
+            }
+        }
+
+        // If ID not taken
+        Book newBook = new Book(id, title, author, year);
+        books.add(newBook);
+        System.out.println("Book added successfully.");
+        return true;
     }
 
     //Displaying all books
